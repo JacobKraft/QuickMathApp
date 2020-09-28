@@ -25,4 +25,7 @@
     <string name="button_del_text">delete</string>
     <string name="button_0_text">0</string>
     <string name="button_enter_text">enter</string>
+    <string name="button_go_text">GO!</string>
+    <string name="score_text">Score: %d</string>
+    <string name="button_minus_text">(-)</string>
 </resources>

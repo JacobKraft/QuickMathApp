@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
 
 import java.util.Random;
 
 public class SecondFragment extends Fragment implements View.OnClickListener{
 
     int correctAnswer;
+    int gameType;
     int score = 0;
 
     @Override
@@ -62,6 +65,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
     }
 
     @Override
@@ -76,33 +80,63 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 gameState(view);
                 break;
             case R.id.button_1:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("1");
                 break;
             case R.id.button_2:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("2");
                 break;
             case R.id.button_3:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("3");
                 break;
             case R.id.button_4:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("4");
                 break;
             case R.id.button_5:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("5");
                 break;
             case R.id.button_6:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("6");
                 break;
             case R.id.button_7:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("7");
                 break;
             case R.id.button_8:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("8");
                 break;
             case R.id.button_9:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("9");
                 break;
             case R.id.button_0:
+                if(lengthCheck(input)){
+                    break;
+                }
                 input.append("0");
                 break;
             case R.id.button_minus:
@@ -123,9 +157,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 }
                 if(Integer.parseInt(input.getText().toString()) == correctAnswer){
                     score++;
-                    String countScore = getString(R.string.score_text, score);
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
-                    scoreText.setText(countScore);
+                    scoreText.setText("Score: " + score);
                     input.setText("");
                     gameState(view);
                 }
@@ -133,23 +166,43 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * Makes sure that the user input does not exceed 5 digits
+     * @param input the textview the user adds input to
+     * @return true if the textview would exceed the max length, false if it would not.
+     */
+    public boolean lengthCheck(TextView input){
+        if(input.getText().toString().length() >= 5){
+            Toast.makeText(getContext(), "Max length!", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void gameState(View view){
         Random random = new java.util.Random();
         boolean run = true;
         correctAnswer = 0;
-        char[] operations = new char[]{'+', '-', '/', '*'};
+        char[] operations = new char[]{'+', '-', '*', '/'};
         while(run){
             int opNum = 0;
             int firstNum = 0;
             int secondNum = 0;
-            opNum = random.nextInt(3);
+            if (gameType == 0){
+                opNum = random.nextInt(2);
+            } else if (gameType == 1){
+                opNum = random.nextInt(3);
+            } else if (gameType == 2){
+                opNum = random.nextInt(4);
+            }
             char op = operations[opNum];
-            firstNum = random.nextInt(20);
-            secondNum = random.nextInt(20);
-            if(opNum == 2){
+            firstNum = random.nextInt(30) + 1;
+            secondNum = random.nextInt( 30) + 1;
+            if(opNum == 3){
                 while(firstNum  % secondNum != 0){
-                    firstNum = random.nextInt(20);
-                    secondNum = random.nextInt(20);
+                    firstNum = random.nextInt(30) + 1;
+                    secondNum = random.nextInt(30) + 1;
                 }
             }
             TextView problem = (TextView) view.getRootView().findViewById(R.id.textview_display);
@@ -159,9 +212,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             } if(opNum == 1){
                 correctAnswer = firstNum - secondNum;
             } if(opNum == 2){
-                correctAnswer = firstNum / secondNum;
-            } if(opNum == 3){
                 correctAnswer = firstNum * secondNum;
+            } if(opNum == 3){
+                correctAnswer = firstNum / secondNum;
             }
             run = false;
         }

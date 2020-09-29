@@ -45,10 +45,19 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.button_easy:
-            case R.id.button_med:
-            case R.id.button_hard:
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action0 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(0);
                 NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(action0);
+                break;
+            case R.id.button_med:
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action1 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(1);
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(action1);
+                break;
+            case R.id.button_hard:
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action2 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(2);
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(action2);
                 break;
         }
     }

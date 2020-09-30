@@ -28,4 +28,5 @@
     <string name="button_go_text">GO!</string>
     <string name="score_text">Score: </string>
     <string name="button_minus_text">(-)</string>
+    <string name="problem_text">%d &amp; %d = __</string>
 </resources>

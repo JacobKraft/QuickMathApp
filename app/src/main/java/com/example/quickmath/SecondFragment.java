@@ -1,5 +1,8 @@
 package com.example.quickmath;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +17,16 @@ import androidx.navigation.fragment.NavHostFragment;
 
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SecondFragment extends Fragment implements View.OnClickListener{
 
-    int correctAnswer;
-    int gameType;
-    int score = 0;
+    int correctAnswer = -1; //tracks the correct answer of a give problem
+    int gameType; //tracks if the game is easy/med/hard based on player selection
+    int score = 0; //tracks the user score throughout the game
+    int counter = -1; //counter used to display seconds user has left
+    Timer timer; //timer used to increase counter every second
 
     @Override
     public View onCreateView(
@@ -77,7 +84,11 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 break;
             case R.id.button_start:
+                //disable go button during the game
+                view.findViewById(R.id.button_start).setEnabled(false);
+                counter++;
                 gameState(view);
+                startTimer(view);
                 break;
             case R.id.button_1:
                 if(lengthCheck(input)){
@@ -161,6 +172,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                     scoreText.setText("Score: " + score);
                     input.setText("");
                     gameState(view);
+                } else {
+                    Toast.makeText(getContext(), "Wrong!", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -180,15 +193,19 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * Main method that runs the game by creating a problem and setting a correct answer based on
+     * the problem that was randomly generated.
+     * @param view gives ability to alter screen
+     */
     public void gameState(View view){
         Random random = new java.util.Random();
-        boolean run = true;
-        correctAnswer = 0;
         char[] operations = new char[]{'+', '-', '*', '/'};
-        while(run){
+        if(counter <= 59 && counter >= 0){
             int opNum = 0;
             int firstNum = 0;
             int secondNum = 0;
+            //if else section to set the game to easy(+/-) medium(+/-/*) or hard(+/-/*//)
             if (gameType == 0){
                 opNum = random.nextInt(2);
             } else if (gameType == 1){
@@ -196,9 +213,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             } else if (gameType == 2){
                 opNum = random.nextInt(4);
             }
+
             char op = operations[opNum];
             firstNum = random.nextInt(30) + 1;
             secondNum = random.nextInt( 30) + 1;
+
+            //makes sure the division is relatively easy
             if(opNum == 3){
                 while(firstNum  % secondNum != 0){
                     firstNum = random.nextInt(30) + 1;
@@ -207,6 +227,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             }
             TextView problem = (TextView) view.getRootView().findViewById(R.id.textview_display);
             problem.setText(firstNum + " "+ op + " "+ secondNum + " = __");
+
+            //sets the correct answer based on the randomly chosen numbers and operation
             if(opNum == 0){
                 correctAnswer = firstNum + secondNum;
             } if(opNum == 1){
@@ -216,8 +238,34 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             } if(opNum == 3){
                 correctAnswer = firstNum / secondNum;
             }
-            run = false;
         }
+
     }
 
+    public void startTimer(View view){
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new timeDisplay(view), 0, 1000);
+    }
+
+    public class timeDisplay extends TimerTask {
+        View view;
+        public timeDisplay(View view){
+            this.view=view;
+        }
+        @Override
+        public void run() {
+            if (counter < 60 && counter >= 0) {
+                counter++;
+                TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
+                count.setText(String.valueOf(60 - counter));
+            } else {
+                timer.cancel();
+                counter = -1;
+                TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
+                count.setText("GO!");
+                //re-enable go button
+                view.findViewById(R.id.button_start).setEnabled(true);
+            }
+        }
+    }
 }

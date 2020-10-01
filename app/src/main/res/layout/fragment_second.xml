@@ -317,5 +317,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.98" />
 
+    <TextView
+        android:id="@+id/streak_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/wrongToastBackground"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/streakColor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_score"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="@+id/text_score"
+        app:layout_constraintTop_toBottomOf="@+id/text_score" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import es.dmoral.toasty.Toasty;
 
 public class SecondFragment extends Fragment implements View.OnClickListener{
 
@@ -27,6 +28,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     int score = 0; //tracks the user score throughout the game
     int counter = -1; //counter used to display seconds user has left
     Timer timer; //timer used to increase counter every second
+    int streak = 0; //keeps track of number of correct answers in a row
 
     @Override
     public View onCreateView(
@@ -72,6 +74,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getArguments() != null;
         gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
     }
 
@@ -167,13 +170,26 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                     break;
                 }
                 if(Integer.parseInt(input.getText().toString()) == correctAnswer){
-                    score++;
+                    //for each consecutive correct answer the streak increases
+                    //streak of 5 answers are worth double, 10 worth * 5, 20 worth *10
+                    streak++;
+                    if (streak >= 20){
+                        score = score + 10*10;
+                    } else if (streak >= 10){
+                        score = score + 10*5;
+                    } else if (streak >= 5){
+                        score = score + 10*2;
+                    } else {
+                        score = score + 10;
+                    }
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
                     scoreText.setText("Score: " + score);
                     input.setText("");
                     gameState(view);
                 } else {
-                    Toast.makeText(getContext(), "Wrong!", Toast.LENGTH_SHORT).show();
+                    streak = 0;
+                    Toasty.error(requireContext(), "Incorrect", Toast.LENGTH_SHORT,
+                            true).show();
                 }
                 break;
         }
@@ -186,7 +202,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
      */
     public boolean lengthCheck(TextView input){
         if(input.getText().toString().length() >= 5){
-            Toast.makeText(getContext(), "Max length!", Toast.LENGTH_SHORT).show();
+            Toasty.warning(requireContext(), "Max Input", Toasty.LENGTH_SHORT,
+                    true).show();
             return true;
         } else {
             return false;
@@ -201,6 +218,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     public void gameState(View view){
         Random random = new java.util.Random();
         char[] operations = new char[]{'+', '-', '*', '/'};
+        if (counter == -1){
+            view.findViewById(R.id.button_start).setEnabled(true);
+        }
         if(counter <= 59 && counter >= 0){
             int opNum = 0;
             int firstNum = 0;
@@ -212,6 +232,18 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 opNum = random.nextInt(3);
             } else if (gameType == 2){
                 opNum = random.nextInt(4);
+            }
+
+            //display the streak multiplier to the user
+            TextView displayStreak = (TextView) view.getRootView().findViewById(R.id.streak_text);
+            if (streak >= 20){
+                displayStreak.setText("X10");
+            } else if (streak >= 10){
+                displayStreak.setText("X5");
+            } else if (streak >= 5){
+                displayStreak.setText("X2");
+            } else {
+                displayStreak.setText("");
             }
 
             char op = operations[opNum];
@@ -249,6 +281,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     public class timeDisplay extends TimerTask {
         View view;
+
         public timeDisplay(View view){
             this.view=view;
         }
@@ -259,12 +292,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
                 count.setText(String.valueOf(60 - counter));
             } else {
+                //re-enable go button
+                //view.findViewById(R.id.button_start).setEnabled(true);
                 timer.cancel();
                 counter = -1;
                 TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
                 count.setText("GO!");
-                //re-enable go button
-                view.findViewById(R.id.button_start).setEnabled(true);
             }
         }
     }

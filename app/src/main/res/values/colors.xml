@@ -6,4 +6,6 @@
     <color name="primaryBackground">#EE74CFCF</color>
     <color name="primaryText">#FF2364E4</color>
     <color name="shadow">#ffffff</color>
+    <color name="wrongToastBackground">#FF0000</color>
+    <color name="streakColor">#FDB813</color>
 </resources>

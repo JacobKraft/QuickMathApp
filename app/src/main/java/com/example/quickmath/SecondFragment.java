@@ -1,9 +1,8 @@
 package com.example.quickmath;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import es.dmoral.toasty.Toasty;
 
 public class SecondFragment extends Fragment implements View.OnClickListener{
@@ -27,15 +27,19 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     int gameType; //tracks if the game is easy/med/hard based on player selection
     int score = 0; //tracks the user score throughout the game
     int counter = -1; //counter used to display seconds user has left
-    Timer timer; //timer used to increase counter every second
+    Timer timer = new Timer(); //timer used to increase counter every second
     int streak = 0; //keeps track of number of correct answers in a row
+    Handler handler = new Handler();
+    View view;
+
+
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
+        view = inflater.inflate(R.layout.fragment_second, container, false);
 
         Button button_start = view.findViewById(R.id.button_start);
         Button button_second = view.findViewById(R.id.button_second);
@@ -80,7 +84,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        TextView input = (TextView) view.getRootView().findViewById(R.id.textview_input);
+        TextView input = view.getRootView().findViewById(R.id.textview_input);
         switch(view.getId()){
             case R.id.button_second:
                 NavHostFragment.findNavController(SecondFragment.this)
@@ -91,7 +95,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 view.findViewById(R.id.button_start).setEnabled(false);
                 counter++;
                 gameState(view);
-                startTimer(view);
+                startTimer();
                 break;
             case R.id.button_1:
                 if(lengthCheck(input)){
@@ -190,6 +194,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                     streak = 0;
                     Toasty.error(requireContext(), "Incorrect", Toast.LENGTH_SHORT,
                             true).show();
+                    TextView displayStreak = view.getRootView().findViewById(R.id.streak_text);
+                    displayStreak.setText("");
                 }
                 break;
         }
@@ -235,7 +241,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             }
 
             //display the streak multiplier to the user
-            TextView displayStreak = (TextView) view.getRootView().findViewById(R.id.streak_text);
+            TextView displayStreak = view.getRootView().findViewById(R.id.streak_text);
             if (streak >= 20){
                 displayStreak.setText("X10");
             } else if (streak >= 10){
@@ -257,7 +263,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                     secondNum = random.nextInt(30) + 1;
                 }
             }
-            TextView problem = (TextView) view.getRootView().findViewById(R.id.textview_display);
+            TextView problem = view.getRootView().findViewById(R.id.textview_display);
             problem.setText(firstNum + " "+ op + " "+ secondNum + " = __");
 
             //sets the correct answer based on the randomly chosen numbers and operation
@@ -274,31 +280,32 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    public void startTimer(View view){
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new timeDisplay(view), 0, 1000);
-    }
-
-    public class timeDisplay extends TimerTask {
-        View view;
-
-        public timeDisplay(View view){
-            this.view=view;
-        }
+    Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
             if (counter < 60 && counter >= 0) {
                 counter++;
-                TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
+                TextView count = view.getRootView().findViewById(R.id.button_start);
                 count.setText(String.valueOf(60 - counter));
             } else {
-                //re-enable go button
-                //view.findViewById(R.id.button_start).setEnabled(true);
+                handler.sendEmptyMessage(1);
+                view.getRootView().findViewById(R.id.button_start).setEnabled(true);
                 timer.cancel();
                 counter = -1;
-                TextView count = (TextView) view.getRootView().findViewById(R.id.button_start);
+                TextView count = view.getRootView().findViewById(R.id.button_start);
                 count.setText("GO!");
             }
         }
+    };
+
+    public void startTimer(){
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(myRunnable);
+            }
+        }, 0, 1000);
     }
+
 }

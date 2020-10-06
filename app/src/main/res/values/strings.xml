@@ -29,4 +29,6 @@
     <string name="score_text">Score: </string>
     <string name="button_minus_text">(-)</string>
     <string name="problem_text">%d &amp; %d = __</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

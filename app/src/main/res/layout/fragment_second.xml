@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/erica_one"
+        android:gravity="center"
         android:shadowColor="@color/shadow"
         android:shadowRadius="10"
         android:text=""
         android:textColor="@color/primaryText"
-        android:textSize="60sp"
+        android:textSize="54sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -49,11 +50,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
         android:fontFamily="@font/erica_one"
-        android:textColor="#EEEFF1"
-        android:textSize="30sp"
         android:shadowColor="@color/primaryText"
         android:shadowRadius="10"
         android:text="@string/previous"
+        android:textColor="#EEEFF1"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
@@ -332,6 +333,23 @@
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="@+id/text_score"
         app:layout_constraintTop_toBottomOf="@+id/text_score" />
+
+    <TextView
+        android:id="@+id/multiplier_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/wrongToastBackground"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/streakColor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/streak_text"
+        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintStart_toStartOf="@+id/text_score"
+        app:layout_constraintTop_toBottomOf="@+id/text_score"
+        app:layout_constraintVertical_bias="0.007" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

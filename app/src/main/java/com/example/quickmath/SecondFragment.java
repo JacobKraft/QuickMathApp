@@ -31,6 +31,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     Handler handler = new Handler();
     View view;
     int maxVal;
+    int streakMultiplyer;
 
 
 
@@ -81,6 +82,21 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         assert getArguments() != null;
         gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
         maxVal = SecondFragmentArgs.fromBundle(getArguments()).getMaxVal();
+        TextView streak_mult = view.getRootView().findViewById(R.id.multiplier_text);
+        if (maxVal <= 50){
+            streakMultiplyer = 1;
+        } else if (maxVal <= 100){
+            streakMultiplyer = 2;
+        } else if (maxVal <= 150){
+            streakMultiplyer = 3;
+        } else if (maxVal <= 200){
+            streakMultiplyer = 4;
+        } else if (maxVal <= 250){
+            streakMultiplyer = 5;
+        } else if (maxVal <= 300){
+            streakMultiplyer = 6;
+        }
+        streak_mult.setText("X" + String.valueOf(streakMultiplyer));
     }
 
     @Override
@@ -184,13 +200,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                     //streak of 5 answers are worth double, 10 worth * 5, 20 worth *10
                     streak++;
                     if (streak >= 20){
-                        score = score + 10*10;
+                        score = score*streakMultiplyer + 10*10;
                     } else if (streak >= 10){
-                        score = score + 10*5;
+                        score = score*streakMultiplyer + 10*5;
                     } else if (streak >= 5){
-                        score = score + 10*2;
+                        score = score*streakMultiplyer + 10*2;
                     } else {
-                        score = score + 10;
+                        score = score*streakMultiplyer + 10;
                     }
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
                     scoreText.setText("Score: " + score);
@@ -296,7 +312,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 counter++;
                 count.setText(String.valueOf(60 - counter));
             } else {
-                handler.sendEmptyMessage(1);
                 view.getRootView().findViewById(R.id.button_start).setEnabled(true);
                 timer.cancel();
                 counter = -1;

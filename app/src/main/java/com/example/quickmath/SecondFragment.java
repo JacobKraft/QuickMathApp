@@ -1,6 +1,5 @@
 package com.example.quickmath;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -31,6 +30,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     int streak = 0; //keeps track of number of correct answers in a row
     Handler handler = new Handler();
     View view;
+    int maxVal;
 
 
 
@@ -42,7 +42,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_second, container, false);
 
         Button button_start = view.findViewById(R.id.button_start);
-        Button button_second = view.findViewById(R.id.button_second);
+        Button button_second = view.findViewById(R.id.settings_back);
         Button button_1 = view.findViewById(R.id.button_1);
         Button button_2 = view.findViewById(R.id.button_2);
         Button button_3 = view.findViewById(R.id.button_3);
@@ -80,13 +80,14 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         assert getArguments() != null;
         gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
+        maxVal = SecondFragmentArgs.fromBundle(getArguments()).getMaxVal();
     }
 
     @Override
     public void onClick(View view) {
         TextView input = view.getRootView().findViewById(R.id.textview_input);
         switch(view.getId()){
-            case R.id.button_second:
+            case R.id.settings_back:
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 break;
@@ -158,7 +159,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 input.append("0");
                 break;
             case R.id.button_minus:
-                input.append("-");
+                if (input.getText().length() < 1){
+                    input.append("-");
+                } else {
+                    Toasty.warning(requireContext(), "Can't input (-) here",
+                            Toasty.LENGTH_SHORT, true).show();
+                }
                 break;
             case R.id.button_del:
                 String newNum = input.getText().toString();
@@ -253,14 +259,14 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             }
 
             char op = operations[opNum];
-            firstNum = random.nextInt(30) + 1;
-            secondNum = random.nextInt( 30) + 1;
+            firstNum = random.nextInt(maxVal) + 1;
+            secondNum = random.nextInt( maxVal) + 1;
 
             //makes sure the division is relatively easy
             if(opNum == 3){
                 while(firstNum  % secondNum != 0){
-                    firstNum = random.nextInt(30) + 1;
-                    secondNum = random.nextInt(30) + 1;
+                    firstNum = random.nextInt(maxVal) + 1;
+                    secondNum = random.nextInt(maxVal) + 1;
                 }
             }
             TextView problem = view.getRootView().findViewById(R.id.textview_display);
@@ -283,20 +289,28 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
+            TextView count = view.getRootView().findViewById(R.id.button_start);
+            TextView score_text = view.getRootView().findViewById(R.id.text_score);
+            TextView problem = view.getRootView().findViewById(R.id.textview_display);
             if (counter < 60 && counter >= 0) {
                 counter++;
-                TextView count = view.getRootView().findViewById(R.id.button_start);
                 count.setText(String.valueOf(60 - counter));
             } else {
                 handler.sendEmptyMessage(1);
                 view.getRootView().findViewById(R.id.button_start).setEnabled(true);
                 timer.cancel();
                 counter = -1;
-                TextView count = view.getRootView().findViewById(R.id.button_start);
+                score = 0;
                 count.setText("GO!");
+                score_text.setText("Score: " + score);
+                problem.setText("");
             }
         }
     };
+
+    public void endGame(){
+
+    }
 
     public void startTimer(){
         timer = new Timer();

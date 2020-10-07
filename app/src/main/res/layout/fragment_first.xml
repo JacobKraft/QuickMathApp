@@ -29,17 +29,17 @@
         android:layout_height="50dp"
         android:background="@drawable/mybutton"
         android:fontFamily="@font/erica_one"
-        android:textColor="#EEEFF1"
-        android:textSize="30sp"
         android:shadowColor="@color/primaryText"
         android:shadowRadius="10"
         android:text="@string/button_easy_text"
+        android:textColor="#EEEFF1"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first"
-        app:layout_constraintVertical_bias=".25" />
+        app:layout_constraintVertical_bias="0.146" />
 
     <Button
         android:id="@+id/button_med"
@@ -75,17 +75,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_med" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_settings"
-        android:background="@drawable/mybutton"
+
+    <EditText
+        android:id="@+id/text_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="192dp"
+        android:ems="6"
+        android:gravity="center"
+        android:hint="@string/default_hint"
+
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintTop_toBottomOf="@+id/max_text" />
+
+    <TextView
+        android:id="@+id/max_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/max_text"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_hard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

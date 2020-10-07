@@ -27,5 +27,8 @@
         <argument
             android:name="firstInt"
             app:argType="integer" />
+        <argument
+            android:name="maxVal"
+            app:argType="integer" />
     </fragment>
 </navigation>

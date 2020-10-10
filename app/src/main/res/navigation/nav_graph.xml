@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_highScoreFragment"
+            app:destination="@id/highScoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -30,5 +33,19 @@
         <argument
             android:name="maxVal"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_SecondFragment_to_highScoreFragment"
+            app:destination="@id/highScoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/highScoreFragment"
+        android:name="com.example.quickmath.HighScoreFragment"
+        android:label="HighScoreFragment" >
+        <action
+            android:id="@+id/action_highScoreFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_highScoreFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

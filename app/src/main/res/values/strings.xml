@@ -33,6 +33,10 @@
     <string name="_300"><![CDATA[<300]]></string>
     <string name="submit_text">Submit</string>
     <string name="settings_desc">Settings</string>
-    <string name="default_hint">Default is 35</string>
+    <string name="default_hint">Default is 20</string>
     <string name="max_text">Max Number:</string>
+    <string name="title_activity_high_score">HighScoreActivity</string>
+    <string name="high_scores_text">High Scores:</string>
+    <string name="button_home_text">Home</string>
+    <string name="button_text_play_again">Play Again</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.quickmath;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     View view;
     int maxVal;
     int streakMultiplyer;
+    static final String SHARED_PREFS = "sharedPrefs";
+    static final String NUM = "num";
 
 
 
@@ -314,8 +318,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             } else {
                 view.getRootView().findViewById(R.id.button_start).setEnabled(true);
                 timer.cancel();
+                endGame();
                 counter = -1;
-                score = 0;
                 count.setText("GO!");
                 score_text.setText("Score: " + score);
                 problem.setText("");
@@ -324,7 +328,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     };
 
     public void endGame(){
-
+        score = 0;
+        NavHostFragment.findNavController(SecondFragment.this).
+                navigate(R.id.action_SecondFragment_to_highScoreFragment);
     }
 
     public void startTimer(){

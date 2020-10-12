@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.quickmath.FirstFragment"
+        android:name="com.kraftjacob.quickmath.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.quickmath.SecondFragment"
+        android:name="com.kraftjacob.quickmath.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/highScoreFragment"
-        android:name="com.example.quickmath.HighScoreFragment"
+        android:name="com.kraftjacob.quickmath.HighScoreFragment"
         android:label="HighScoreFragment">
         <action
             android:id="@+id/action_highScoreFragment_to_FirstFragment"

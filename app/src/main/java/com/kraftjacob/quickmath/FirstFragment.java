@@ -1,5 +1,6 @@
-package com.example.quickmath;
+package com.kraftjacob.quickmath;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
 
     EditText maxVal;
     int val;
+    MediaPlayer mp;
 
     @Override
     public View onCreateView(
@@ -34,6 +36,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         ImageButton button_highscore = view.findViewById(R.id.button_highscore);
 
         maxVal = view.findViewById(R.id.text_number);
+        mp = MediaPlayer.create(getContext(), R.raw.button_click);
 
         //sets up onClickListeners for each button
         button_easy.setOnClickListener(this);
@@ -67,24 +70,28 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         }
         switch (view.getId()) {
             case R.id.button_easy:
+                mp.start();
                 FirstFragmentDirections.ActionFirstFragmentToSecondFragment action0 =
                         FirstFragmentDirections.actionFirstFragmentToSecondFragment(0, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action0);
                 break;
             case R.id.button_med:
+                mp.start();
                 FirstFragmentDirections.ActionFirstFragmentToSecondFragment action1 =
                         FirstFragmentDirections.actionFirstFragmentToSecondFragment(1, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action1);
                 break;
             case R.id.button_hard:
+                mp.start();
                 FirstFragmentDirections.ActionFirstFragmentToSecondFragment action2 =
                         FirstFragmentDirections.actionFirstFragmentToSecondFragment(2, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action2);
                 break;
             case R.id.button_highscore:
+                mp.start();
                 FirstFragmentDirections.ActionFirstFragmentToHighScoreFragment action3 = FirstFragmentDirections.actionFirstFragmentToHighScoreFragment(-1);
                 NavHostFragment.findNavController(FirstFragment.this).
                         navigate(action3);

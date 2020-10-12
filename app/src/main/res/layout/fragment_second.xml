@@ -38,12 +38,12 @@
         android:text=""
         android:textColor="@color/primaryText"
         android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintHorizontal_bias="0.781"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/settings_back"
@@ -69,7 +69,7 @@
         android:layout_height="85dp"
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
-        android:layout_marginTop="295dp"
+        android:layout_marginTop="340dp"
 
         android:background="@drawable/mybutton"
         android:fontFamily="@font/erica_one"
@@ -85,7 +85,7 @@
         android:id="@+id/button_2"
         android:layout_width="100dp"
         android:layout_height="85dp"
-        android:layout_marginTop="295dp"
+        android:layout_marginTop="340dp"
         android:background="@drawable/mybutton"
         android:fontFamily="@font/erica_one"
         android:shadowColor="@color/primaryText"
@@ -94,7 +94,7 @@
         android:textColor="#EEEFF1"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/button_3"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toEndOf="@+id/button_1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,9 +102,9 @@
         android:id="@+id/button_3"
         android:layout_width="100dp"
         android:layout_height="85dp"
-        android:layout_marginTop="295dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:background="@drawable/mybutton"
         android:fontFamily="@font/erica_one"
         android:shadowColor="@color/primaryText"

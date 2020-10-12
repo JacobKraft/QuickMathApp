@@ -1,7 +1,8 @@
-package com.example.quickmath;
+package com.kraftjacob.quickmath;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener 
 
     View view;
     int score;
+    MediaPlayer mp;
 
     @Override
     public View onCreateView(
@@ -30,6 +32,7 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_highscore, container, false);
 
+        mp = MediaPlayer.create(getContext(), R.raw.button_click);
         Button button_home = view.findViewById(R.id.button_home);
 
         button_home.setOnClickListener(this);
@@ -56,8 +59,10 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener 
         String savedString = prefs.getString("MyPrefs", "");
         assert savedString != null;
         String[] st = savedString.split(",");
-        for (String s : st) {
-            highscores.add(Integer.parseInt(s));
+        if (!st[0].equals("")) {
+            for (String s : st) {
+                highscores.add(Integer.parseInt(s));
+            }
         }
 
         //add the current score to prefs by making it a string
@@ -117,6 +122,7 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        mp.start();
         NavHostFragment.findNavController(HighScoreFragment.this).
                 navigate(R.id.action_highScoreFragment_to_FirstFragment);
 

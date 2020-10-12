@@ -1,5 +1,6 @@
-package com.example.quickmath;
+package com.kraftjacob.quickmath;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,16 +22,17 @@ import es.dmoral.toasty.Toasty;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
 
-    int correctAnswer = -1; //tracks the correct answer of a give problem
+    int correctAnswer; //tracks the correct answer of a give problem
     int gameType; //tracks if the game is easy/med/hard based on player selection
-    int score = 0; //tracks the user score throughout the game
-    int counter = -1; //counter used to display seconds user has left
-    Timer timer = new Timer(); //timer used to increase counter every second
-    int streak = 0; //keeps track of number of correct answers in a row
-    Handler handler = new Handler();
+    int score; //tracks the user score throughout the game
+    int counter; //counter used to display seconds user has left
+    Timer timer; //timer used to increase counter every second
+    int streak; //keeps track of number of correct answers in a row
+    final Handler handler = new Handler();
     View view;
     int maxVal;
     int streakMultiplyer;
+    MediaPlayer mp;
 
 
     @Override
@@ -39,6 +41,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             Bundle savedInstanceState
     ) {
         view = inflater.inflate(R.layout.fragment_second, container, false);
+
+        correctAnswer = -1; //tracks the correct answer of a give problem
+        score = 0; //tracks the user score throughout the game
+        counter = -1; //counter used to display seconds user has left
+        timer = new Timer(); //timer used to increase counter every second
+        streak = 0; //keeps track of number of correct answers in a row
+        mp = MediaPlayer.create(getContext(), R.raw.button_click);
 
         Button button_start = view.findViewById(R.id.button_start);
         Button button_second = view.findViewById(R.id.settings_back);
@@ -83,15 +92,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         TextView streak_mult = view.getRootView().findViewById(R.id.multiplier_text);
         TextView score_text = view.getRootView().findViewById(R.id.text_score);
         score_text.setText(getString(R.string.score_text, score));
-        if (maxVal <= 50) {
+        if (maxVal < 50) {
             streakMultiplyer = 1;
-        } else if (maxVal <= 100) {
+        } else if (maxVal < 100) {
             streakMultiplyer = 2;
-        } else if (maxVal <= 150) {
+        } else if (maxVal < 150) {
             streakMultiplyer = 3;
-        } else if (maxVal <= 200) {
+        } else if (maxVal < 200) {
             streakMultiplyer = 4;
-        } else if (maxVal <= 250) {
+        } else if (maxVal < 250) {
             streakMultiplyer = 5;
         } else if (maxVal <= 300) {
             streakMultiplyer = 6;
@@ -104,10 +113,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         TextView input = view.getRootView().findViewById(R.id.textview_input);
         switch (view.getId()) {
             case R.id.settings_back:
+                mp.start();
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 break;
             case R.id.button_start:
+                mp.start();
                 //disable go button during the game
                 view.findViewById(R.id.button_start).setEnabled(false);
                 counter++;
@@ -115,66 +126,77 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 startTimer();
                 break;
             case R.id.button_1:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("1");
                 break;
             case R.id.button_2:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("2");
                 break;
             case R.id.button_3:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("3");
                 break;
             case R.id.button_4:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("4");
                 break;
             case R.id.button_5:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("5");
                 break;
             case R.id.button_6:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("6");
                 break;
             case R.id.button_7:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("7");
                 break;
             case R.id.button_8:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("8");
                 break;
             case R.id.button_9:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("9");
                 break;
             case R.id.button_0:
+                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("0");
                 break;
             case R.id.button_minus:
+                mp.start();
                 if (input.getText().length() < 1) {
                     input.append("-");
                 } else {
@@ -183,6 +205,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.button_del:
+                mp.start();
                 String newNum = input.getText().toString();
                 //makes sure string is at least 1 char long
                 if (newNum.length() <= 0) {
@@ -192,6 +215,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 input.setText(newNum);
                 break;
             case R.id.button_submit:
+                mp.start();
                 if (input.getText().toString().length() == 0) {
                     break;
                 }
@@ -200,13 +224,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                     //streak of 5 answers are worth double, 10 worth * 5, 20 worth *10
                     streak++;
                     if (streak >= 20) {
-                        score = score * streakMultiplyer + 10 * 10;
+                        score = score + (streakMultiplyer + 10) * 10;
                     } else if (streak >= 10) {
-                        score = score * streakMultiplyer + 10 * 5;
+                        score = score + (streakMultiplyer + 5) * 10;
                     } else if (streak >= 5) {
-                        score = score * streakMultiplyer + 10 * 2;
+                        score = score + (streakMultiplyer + 2) * 10;
                     } else {
-                        score = score * streakMultiplyer + 10;
+                        score = score + streakMultiplyer * 10;
                     }
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
                     scoreText.setText(getString(R.string.score_text, score));
@@ -307,7 +331,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    Runnable myRunnable = new Runnable() {
+    final Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
             TextView count = view.getRootView().findViewById(R.id.button_start);

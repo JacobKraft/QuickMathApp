@@ -1,4 +1,4 @@
-package com.example.quickmath;
+package com.kraftjacob.quickmath;
 
 import android.content.Context;
 

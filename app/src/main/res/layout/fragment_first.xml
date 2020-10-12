@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackground"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textview_first"
@@ -91,7 +92,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/max_text"
-        android:autofillHints="number<300" />
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/max_text"

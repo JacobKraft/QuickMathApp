@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/highScoreFragment"
         android:name="com.example.quickmath.HighScoreFragment"
-        android:label="HighScoreFragment" >
+        android:label="HighScoreFragment">
         <action
             android:id="@+id/action_highScoreFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />

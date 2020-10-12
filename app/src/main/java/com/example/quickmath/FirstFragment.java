@@ -51,20 +51,21 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Method that handles all the button clicks with a simple switch statement
+     *
      * @param view view
      */
     @Override
     public void onClick(View view) {
-        if(maxVal.getText().toString().length() <= 0){
+        if (maxVal.getText().toString().length() <= 0) {
             val = 20;
-        } else if(parseInt(maxVal.getText().toString()) > 300){
+        } else if (parseInt(maxVal.getText().toString()) > 300) {
             Toasty.warning(requireContext(), "Max 300. Set to 300",
                     Toasty.LENGTH_SHORT, true).show();
             val = 300;
         } else {
             val = parseInt(maxVal.getText().toString());
         }
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.button_easy:
                 FirstFragmentDirections.ActionFirstFragmentToSecondFragment action0 =
                         FirstFragmentDirections.actionFirstFragmentToSecondFragment(0, val);

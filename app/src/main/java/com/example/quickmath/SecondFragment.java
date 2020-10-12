@@ -13,14 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import es.dmoral.toasty.Toasty;
 
-public class SecondFragment extends Fragment implements View.OnClickListener{
+public class SecondFragment extends Fragment implements View.OnClickListener {
 
     int correctAnswer = -1; //tracks the correct answer of a give problem
     int gameType; //tracks if the game is easy/med/hard based on player selection
@@ -32,7 +31,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     View view;
     int maxVal;
     int streakMultiplyer;
-
 
 
     @Override
@@ -85,17 +83,17 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         TextView streak_mult = view.getRootView().findViewById(R.id.multiplier_text);
         TextView score_text = view.getRootView().findViewById(R.id.text_score);
         score_text.setText(getString(R.string.score_text, score));
-        if (maxVal <= 50){
+        if (maxVal <= 50) {
             streakMultiplyer = 1;
-        } else if (maxVal <= 100){
+        } else if (maxVal <= 100) {
             streakMultiplyer = 2;
-        } else if (maxVal <= 150){
+        } else if (maxVal <= 150) {
             streakMultiplyer = 3;
-        } else if (maxVal <= 200){
+        } else if (maxVal <= 200) {
             streakMultiplyer = 4;
-        } else if (maxVal <= 250){
+        } else if (maxVal <= 250) {
             streakMultiplyer = 5;
-        } else if (maxVal <= 300){
+        } else if (maxVal <= 300) {
             streakMultiplyer = 6;
         }
         streak_mult.setText(getString(R.string.mult_streak_text, String.valueOf(streakMultiplyer)));
@@ -104,7 +102,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         TextView input = view.getRootView().findViewById(R.id.textview_input);
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.settings_back:
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
@@ -117,67 +115,67 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 startTimer();
                 break;
             case R.id.button_1:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("1");
                 break;
             case R.id.button_2:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("2");
                 break;
             case R.id.button_3:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("3");
                 break;
             case R.id.button_4:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("4");
                 break;
             case R.id.button_5:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("5");
                 break;
             case R.id.button_6:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("6");
                 break;
             case R.id.button_7:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("7");
                 break;
             case R.id.button_8:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("8");
                 break;
             case R.id.button_9:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("9");
                 break;
             case R.id.button_0:
-                if(lengthCheck(input)){
+                if (lengthCheck(input)) {
                     break;
                 }
                 input.append("0");
                 break;
             case R.id.button_minus:
-                if (input.getText().length() < 1){
+                if (input.getText().length() < 1) {
                     input.append("-");
                 } else {
                     Toasty.warning(requireContext(), "Can't input (-) here",
@@ -187,28 +185,28 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             case R.id.button_del:
                 String newNum = input.getText().toString();
                 //makes sure string is at least 1 char long
-                if( newNum.length() <= 0){
+                if (newNum.length() <= 0) {
                     break;
                 }
                 newNum = newNum.substring(0, newNum.length() - 1);
                 input.setText(newNum);
                 break;
             case R.id.button_submit:
-                if(input.getText().toString().length() == 0){
+                if (input.getText().toString().length() == 0) {
                     break;
                 }
-                if(Integer.parseInt(input.getText().toString()) == correctAnswer){
+                if (Integer.parseInt(input.getText().toString()) == correctAnswer) {
                     //for each consecutive correct answer the streak increases
                     //streak of 5 answers are worth double, 10 worth * 5, 20 worth *10
                     streak++;
-                    if (streak >= 20){
-                        score = score*streakMultiplyer + 10*10;
-                    } else if (streak >= 10){
-                        score = score*streakMultiplyer + 10*5;
-                    } else if (streak >= 5){
-                        score = score*streakMultiplyer + 10*2;
+                    if (streak >= 20) {
+                        score = score * streakMultiplyer + 10 * 10;
+                    } else if (streak >= 10) {
+                        score = score * streakMultiplyer + 10 * 5;
+                    } else if (streak >= 5) {
+                        score = score * streakMultiplyer + 10 * 2;
                     } else {
-                        score = score*streakMultiplyer + 10;
+                        score = score * streakMultiplyer + 10;
                     }
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
                     scoreText.setText(getString(R.string.score_text, score));
@@ -227,11 +225,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Makes sure that the user input does not exceed 5 digits
+     *
      * @param input the textview the user adds input to
      * @return true if the textview would exceed the max length, false if it would not.
      */
-    public boolean lengthCheck(TextView input){
-        if(input.getText().toString().length() >= 5){
+    public boolean lengthCheck(TextView input) {
+        if (input.getText().toString().length() >= 5) {
             Toasty.warning(requireContext(), "Max Input", Toasty.LENGTH_SHORT,
                     true).show();
             return true;
@@ -243,34 +242,35 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     /**
      * Main method that runs the game by creating a problem and setting a correct answer based on
      * the problem that was randomly generated.
+     *
      * @param view gives ability to alter screen
      */
-    public void gameState(View view){
+    public void gameState(View view) {
         Random random = new java.util.Random();
         char[] operations = new char[]{'+', '-', '*', '/'};
-        if (counter == -1){
+        if (counter == -1) {
             view.findViewById(R.id.button_start).setEnabled(true);
         }
-        if(counter <= 59 && counter >= 0){
+        if (counter <= 59 && counter >= 0) {
             int opNum = 0;
-            int firstNum ;
+            int firstNum;
             int secondNum;
             //if else section to set the game to easy(+/-) medium(+/-/*) or hard(+/-/*//)
-            if (gameType == 0){
+            if (gameType == 0) {
                 opNum = random.nextInt(2);
-            } else if (gameType == 1){
+            } else if (gameType == 1) {
                 opNum = random.nextInt(3);
-            } else if (gameType == 2){
+            } else if (gameType == 2) {
                 opNum = random.nextInt(4);
             }
 
             //display the streak multiplier to the user
             TextView displayStreak = view.getRootView().findViewById(R.id.streak_text);
-            if (streak >= 20){
+            if (streak >= 20) {
                 displayStreak.setText(getString(R.string.x10));
-            } else if (streak >= 10){
+            } else if (streak >= 10) {
                 displayStreak.setText(getString(R.string.x5));
-            } else if (streak >= 5){
+            } else if (streak >= 5) {
                 displayStreak.setText(getString(R.string.x2));
             } else {
                 displayStreak.setText("");
@@ -278,11 +278,11 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
 
             char op = operations[opNum];
             firstNum = random.nextInt(maxVal) + 1;
-            secondNum = random.nextInt( maxVal) + 1;
+            secondNum = random.nextInt(maxVal) + 1;
 
             //makes sure the division is relatively easy
-            if(opNum == 3){
-                while(firstNum  % secondNum != 0){
+            if (opNum == 3) {
+                while (firstNum % secondNum != 0) {
                     firstNum = random.nextInt(maxVal) + 1;
                     secondNum = random.nextInt(maxVal) + 1;
                 }
@@ -291,13 +291,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             problem.setText(getString(R.string.problem_text, firstNum, op, secondNum));
 
             //sets the correct answer based on the randomly chosen numbers and operation
-            if(opNum == 0){
+            if (opNum == 0) {
                 correctAnswer = firstNum + secondNum;
-            } if(opNum == 1){
+            }
+            if (opNum == 1) {
                 correctAnswer = firstNum - secondNum;
-            } if(opNum == 2){
+            }
+            if (opNum == 2) {
                 correctAnswer = firstNum * secondNum;
-            } if(opNum == 3){
+            }
+            if (opNum == 3) {
                 correctAnswer = firstNum / secondNum;
             }
         }
@@ -325,14 +328,14 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         }
     };
 
-    public void endGame(){
+    public void endGame() {
         SecondFragmentDirections.ActionSecondFragmentToHighScoreFragment action = SecondFragmentDirections.actionSecondFragmentToHighScoreFragment(score);
         NavHostFragment.findNavController(SecondFragment.this).
                 navigate(action);
         score = 0;
     }
 
-    public void startTimer(){
+    public void startTimer() {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

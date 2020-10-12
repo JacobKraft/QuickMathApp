@@ -90,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/max_text" />
+        app:layout_constraintTop_toBottomOf="@+id/max_text"
+        android:autofillHints="number<300" />
 
     <TextView
         android:id="@+id/max_text"
@@ -118,6 +119,7 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.95"
+        android:contentDescription="@string/image_content_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

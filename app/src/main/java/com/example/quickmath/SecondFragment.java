@@ -1,7 +1,5 @@
 package com.example.quickmath;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 
@@ -35,8 +32,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     View view;
     int maxVal;
     int streakMultiplyer;
-    static final String SHARED_PREFS = "sharedPrefs";
-    static final String NUM = "num";
 
 
 
@@ -88,6 +83,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
         maxVal = SecondFragmentArgs.fromBundle(getArguments()).getMaxVal();
         TextView streak_mult = view.getRootView().findViewById(R.id.multiplier_text);
+        TextView score_text = view.getRootView().findViewById(R.id.text_score);
+        score_text.setText(getString(R.string.score_text, score));
         if (maxVal <= 50){
             streakMultiplyer = 1;
         } else if (maxVal <= 100){
@@ -101,7 +98,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         } else if (maxVal <= 300){
             streakMultiplyer = 6;
         }
-        streak_mult.setText("X" + String.valueOf(streakMultiplyer));
+        streak_mult.setText(getString(R.string.mult_streak_text, String.valueOf(streakMultiplyer)));
     }
 
     @Override
@@ -214,7 +211,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                         score = score*streakMultiplyer + 10;
                     }
                     TextView scoreText = view.getRootView().findViewById(R.id.text_score);
-                    scoreText.setText("Score: " + score);
+                    scoreText.setText(getString(R.string.score_text, score));
                     input.setText("");
                     gameState(view);
                 } else {
@@ -256,8 +253,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
         }
         if(counter <= 59 && counter >= 0){
             int opNum = 0;
-            int firstNum = 0;
-            int secondNum = 0;
+            int firstNum ;
+            int secondNum;
             //if else section to set the game to easy(+/-) medium(+/-/*) or hard(+/-/*//)
             if (gameType == 0){
                 opNum = random.nextInt(2);
@@ -270,11 +267,11 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
             //display the streak multiplier to the user
             TextView displayStreak = view.getRootView().findViewById(R.id.streak_text);
             if (streak >= 20){
-                displayStreak.setText("X10");
+                displayStreak.setText(getString(R.string.x10));
             } else if (streak >= 10){
-                displayStreak.setText("X5");
+                displayStreak.setText(getString(R.string.x5));
             } else if (streak >= 5){
-                displayStreak.setText("X2");
+                displayStreak.setText(getString(R.string.x2));
             } else {
                 displayStreak.setText("");
             }
@@ -291,7 +288,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 }
             }
             TextView problem = view.getRootView().findViewById(R.id.textview_display);
-            problem.setText(firstNum + " "+ op + " "+ secondNum + " = __");
+            problem.setText(getString(R.string.problem_text, firstNum, op, secondNum));
 
             //sets the correct answer based on the randomly chosen numbers and operation
             if(opNum == 0){
@@ -321,8 +318,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
                 timer.cancel();
                 endGame();
                 counter = -1;
-                count.setText("GO!");
-                score_text.setText("Score: " + score);
+                count.setText(getString(R.string.go));
+                score_text.setText(getString(R.string.score_text, score));
                 problem.setText("");
             }
         }

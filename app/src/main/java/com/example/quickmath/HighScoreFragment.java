@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HighScoreFragment extends Fragment implements View.OnClickListener{
+public class HighScoreFragment extends Fragment implements View.OnClickListener {
 
     View view;
     int score;
@@ -48,59 +48,59 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener{
         TextView score_5 = view.getRootView().findViewById(R.id.text_score_5);
 
         score = HighScoreFragmentArgs.fromBundle(getArguments()).getScoreInt();
-        SharedPreferences prefs = getContext().getSharedPreferences("MyPrefs",Context.MODE_PRIVATE);
+        SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         List<Integer> highscores = new ArrayList<>();
-        List<Integer> savedscores = new ArrayList<>();
 
         //retrieves prefs string and turns into an array of numbers -> highscores
         String savedString = prefs.getString("MyPrefs", "");
+        assert savedString != null;
         String[] st = savedString.split(",");
-        for (int i = 0; i < st.length; i++) {
-            highscores.add(Integer.parseInt(st[i]));
+        for (String s : st) {
+            highscores.add(Integer.parseInt(s));
         }
 
         //add the current score to prefs by making it a string
-        if(score >= 0){
+        if (score >= 0) {
             highscores.add(score);
         }
         Collections.sort(highscores);
         Collections.reverse(highscores);
 
         //make sure there are only 5 elements in the array
-        if (highscores.size() > 5){
-           highscores.remove(5);
+        if (highscores.size() > 5) {
+            highscores.remove(5);
         }
         int arrL = highscores.size();
 
         //display the numbers
-        switch (arrL){
+        switch (arrL) {
             case 0:
                 break;
             case 1:
                 score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
                 break;
             case 2:
-                score_1.setText("1: " + highscores.get(0));
-                score_2.setText("2: " + highscores.get(1));
+                score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
+                score_2.setText(getString(R.string.highscore_2, highscores.get(1)));
                 break;
             case 3:
-                score_1.setText("1: " + highscores.get(0));
-                score_2.setText("2: " + highscores.get(1));
-                score_3.setText("3: " + highscores.get(2));
+                score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
+                score_2.setText(getString(R.string.highscore_2, highscores.get(1)));
+                score_3.setText(getString(R.string.highscore_3, highscores.get(2)));
                 break;
             case 4:
-                score_1.setText("1: " + highscores.get(0));
-                score_2.setText("2: " + highscores.get(1));
-                score_3.setText("3: " + highscores.get(2));
-                score_4.setText("4: " + highscores.get(3));
+                score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
+                score_2.setText(getString(R.string.highscore_2, highscores.get(1)));
+                score_3.setText(getString(R.string.highscore_3, highscores.get(2)));
+                score_4.setText(getString(R.string.highscore_4, highscores.get(3)));
                 break;
             case 5:
-                score_1.setText("1: " + highscores.get(0));
-                score_2.setText("2: " + highscores.get(1));
-                score_3.setText("3: " + highscores.get(2));
-                score_4.setText("4: " + highscores.get(3));
-                score_5.setText("5: " + highscores.get(4));
+                score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
+                score_2.setText(getString(R.string.highscore_2, highscores.get(1)));
+                score_3.setText(getString(R.string.highscore_3, highscores.get(2)));
+                score_4.setText(getString(R.string.highscore_4, highscores.get(3)));
+                score_5.setText(getString(R.string.highscore_5, highscores.get(4)));
                 break;
         }
 
@@ -111,7 +111,6 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener{
         }
         editor.putString("MyPrefs", str1.toString());
         editor.apply();
-
 
 
     }

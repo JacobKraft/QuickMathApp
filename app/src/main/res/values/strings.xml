@@ -26,9 +26,9 @@
     <string name="button_0_text">0</string>
     <string name="button_enter_text">enter</string>
     <string name="button_go_text">GO!</string>
-    <string name="score_text">Score: </string>
+    <string name="score_text">Score: %d</string>
     <string name="button_minus_text">(-)</string>
-    <string name="problem_text">%d &amp; %d = __</string>
+    <string name="problem_text">%d %s %d= __</string>
     <string name="settings_text">Enter a max number (up tp 300) to be generated</string>
     <string name="_300"><![CDATA[<300]]></string>
     <string name="submit_text">Submit</string>
@@ -40,4 +40,14 @@
     <string name="button_home_text">Home</string>
     <string name="button_text_play_again">Play Again</string>
     <string name="highscore_1">1: %d</string>
+    <string name="highscore_2">2: %d</string>
+    <string name="highscore_3">3: %d</string>
+    <string name="highscore_4">4: %d</string>
+    <string name="highscore_5">5: %d</string>
+    <string name="mult_streak_text">X %s</string>
+    <string name="x2">X2</string>
+    <string name="x5">X5</string>
+    <string name="x10">X10</string>
+    <string name="go">GO!</string>
+    <string name="image_content_text">highscore button</string>
 </resources>

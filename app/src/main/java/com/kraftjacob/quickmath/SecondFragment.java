@@ -126,77 +126,66 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 startTimer();
                 break;
             case R.id.button_1:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("1");
                 break;
             case R.id.button_2:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("2");
                 break;
             case R.id.button_3:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("3");
                 break;
             case R.id.button_4:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("4");
                 break;
             case R.id.button_5:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("5");
                 break;
             case R.id.button_6:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("6");
                 break;
             case R.id.button_7:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("7");
                 break;
             case R.id.button_8:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("8");
                 break;
             case R.id.button_9:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("9");
                 break;
             case R.id.button_0:
-                mp.start();
                 if (lengthCheck(input)) {
                     break;
                 }
                 input.append("0");
                 break;
             case R.id.button_minus:
-                mp.start();
                 if (input.getText().length() < 1) {
                     input.append("-");
                 } else {

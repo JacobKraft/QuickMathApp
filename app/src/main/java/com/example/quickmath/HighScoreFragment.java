@@ -1,18 +1,26 @@
 package com.example.quickmath;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class HighScoreFragment extends Fragment implements View.OnClickListener{
 
     View view;
+    int score;
 
     @Override
     public View onCreateView(
@@ -31,6 +39,81 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener{
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        assert getArguments() != null;
+
+        TextView score_1 = view.getRootView().findViewById(R.id.text_score_1);
+        TextView score_2 = view.getRootView().findViewById(R.id.text_score_2);
+        TextView score_3 = view.getRootView().findViewById(R.id.text_score_3);
+        TextView score_4 = view.getRootView().findViewById(R.id.text_score_4);
+        TextView score_5 = view.getRootView().findViewById(R.id.text_score_5);
+
+        score = HighScoreFragmentArgs.fromBundle(getArguments()).getScoreInt();
+        SharedPreferences prefs = getContext().getSharedPreferences("MyPrefs",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        List<Integer> highscores = new ArrayList<>();
+        List<Integer> savedscores = new ArrayList<>();
+
+        //retrieves prefs string and turns into an array of numbers -> highscores
+        String savedString = prefs.getString("MyPrefs", "");
+        String[] st = savedString.split(",");
+        for (int i = 0; i < st.length; i++) {
+            highscores.add(Integer.parseInt(st[i]));
+        }
+
+        //add the current score to prefs by making it a string
+        if(score >= 0){
+            highscores.add(score);
+        }
+        Collections.sort(highscores);
+        Collections.reverse(highscores);
+
+        //make sure there are only 5 elements in the array
+        if (highscores.size() > 5){
+           highscores.remove(5);
+        }
+        int arrL = highscores.size();
+
+        //display the numbers
+        switch (arrL){
+            case 0:
+                break;
+            case 1:
+                score_1.setText(getString(R.string.highscore_1, highscores.get(0)));
+                break;
+            case 2:
+                score_1.setText("1: " + highscores.get(0));
+                score_2.setText("2: " + highscores.get(1));
+                break;
+            case 3:
+                score_1.setText("1: " + highscores.get(0));
+                score_2.setText("2: " + highscores.get(1));
+                score_3.setText("3: " + highscores.get(2));
+                break;
+            case 4:
+                score_1.setText("1: " + highscores.get(0));
+                score_2.setText("2: " + highscores.get(1));
+                score_3.setText("3: " + highscores.get(2));
+                score_4.setText("4: " + highscores.get(3));
+                break;
+            case 5:
+                score_1.setText("1: " + highscores.get(0));
+                score_2.setText("2: " + highscores.get(1));
+                score_3.setText("3: " + highscores.get(2));
+                score_4.setText("4: " + highscores.get(3));
+                score_5.setText("5: " + highscores.get(4));
+                break;
+        }
+
+        //turn array into a string to store in prefs
+        StringBuilder str1 = new StringBuilder();
+        for (int i = 0; i < highscores.size(); i++) {
+            str1.append(highscores.get(i)).append(",");
+        }
+        editor.putString("MyPrefs", str1.toString());
+        editor.apply();
+
+
+
     }
 
     @Override

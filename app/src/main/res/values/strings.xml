@@ -39,4 +39,5 @@
     <string name="high_scores_text">High Scores:</string>
     <string name="button_home_text">Home</string>
     <string name="button_text_play_again">Play Again</string>
+    <string name="highscore_1">1: %d</string>
 </resources>

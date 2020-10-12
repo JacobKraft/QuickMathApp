@@ -44,8 +44,8 @@
         <action
             android:id="@+id/action_highScoreFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_highScoreFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+        <argument
+            android:name="scoreInt"
+            app:argType="integer" />
     </fragment>
 </navigation>

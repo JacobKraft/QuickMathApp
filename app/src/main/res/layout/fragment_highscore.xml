@@ -40,4 +40,76 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.953" />
 
+    <TextView
+        android:id="@+id/text_score_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/shadow"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/primaryText"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_score_1" />
+
+    <TextView
+        android:id="@+id/text_score_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/shadow"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/primaryText"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_score_2" />
+
+    <TextView
+        android:id="@+id/text_score_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/shadow"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/primaryText"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_score_3" />
+
+    <TextView
+        android:id="@+id/text_score_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/shadow"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/primaryText"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_score_4" />
+
+    <TextView
+        android:id="@+id/text_score_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:fontFamily="@font/erica_one"
+        android:shadowColor="@color/shadow"
+        android:shadowRadius="10"
+        android:text=""
+        android:textColor="@color/primaryText"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

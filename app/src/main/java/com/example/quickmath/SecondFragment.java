@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 
@@ -328,9 +329,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener{
     };
 
     public void endGame(){
-        score = 0;
+        SecondFragmentDirections.ActionSecondFragmentToHighScoreFragment action = SecondFragmentDirections.actionSecondFragmentToHighScoreFragment(score);
         NavHostFragment.findNavController(SecondFragment.this).
-                navigate(R.id.action_SecondFragment_to_highScoreFragment);
+                navigate(action);
+        score = 0;
     }
 
     public void startTimer(){

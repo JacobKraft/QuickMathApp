@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -32,6 +33,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         Button button_easy = view.findViewById(R.id.button_easy);
         Button button_med = view.findViewById(R.id.button_med);
         Button button_hard = view.findViewById(R.id.button_hard);
+        ImageButton button_highscore = view.findViewById(R.id.button_highscore);
 
         maxVal = view.findViewById(R.id.text_number);
 
@@ -39,6 +41,7 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         button_easy.setOnClickListener(this);
         button_med.setOnClickListener(this);
         button_hard.setOnClickListener(this);
+        button_highscore.setOnClickListener(this);
 
         return view;
     }
@@ -65,19 +68,27 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         }
         switch(view.getId()){
             case R.id.button_easy:
-                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action0 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(0, val);
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action0 =
+                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(0, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action0);
                 break;
             case R.id.button_med:
-                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action1 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(1, val);
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action1 =
+                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(1, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action1);
                 break;
             case R.id.button_hard:
-                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action2 = FirstFragmentDirections.actionFirstFragmentToSecondFragment(2, val);
+                FirstFragmentDirections.ActionFirstFragmentToSecondFragment action2 =
+                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(2, val);
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action2);
+                break;
+            case R.id.button_highscore:
+                FirstFragmentDirections.ActionFirstFragmentToHighScoreFragment action3 = FirstFragmentDirections.actionFirstFragmentToHighScoreFragment(-1);
+                NavHostFragment.findNavController(FirstFragment.this).
+                        navigate(action3);
                 break;
         }
     }

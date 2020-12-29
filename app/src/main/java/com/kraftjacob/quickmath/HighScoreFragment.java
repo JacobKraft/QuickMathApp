@@ -127,4 +127,5 @@ public class HighScoreFragment extends Fragment implements View.OnClickListener 
                 navigate(R.id.action_highScoreFragment_to_FirstFragment);
 
     }
+
 }

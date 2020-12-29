@@ -28,7 +28,7 @@
     <string name="button_go_text">GO!</string>
     <string name="score_text">Score: %d</string>
     <string name="button_minus_text">(-)</string>
-    <string name="problem_text">%d %s %d= __</string>
+    <string name="problem_text">%d %s %d = __</string>
     <string name="settings_text">Enter a max number (up tp 300) to be generated</string>
     <string name="_300"><![CDATA[<300]]></string>
     <string name="submit_text">Submit</string>

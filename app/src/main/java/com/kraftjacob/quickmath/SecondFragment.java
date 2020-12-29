@@ -3,6 +3,7 @@ package com.kraftjacob.quickmath;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     int maxVal;
     int streakMultiplyer;
     MediaPlayer mp;
+    private static final String TAG = "SecondFragment";
 
 
     @Override
@@ -40,6 +42,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        Log.i(TAG, "CREATE VIEW: CREATE");
         view = inflater.inflate(R.layout.fragment_second, container, false);
 
         correctAnswer = -1; //tracks the correct answer of a give problem
@@ -48,6 +51,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         timer = new Timer(); //timer used to increase counter every second
         streak = 0; //keeps track of number of correct answers in a row
         mp = MediaPlayer.create(getContext(), R.raw.button_click);
+        assert getArguments() != null;
+        gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
+        maxVal = SecondFragmentArgs.fromBundle(getArguments()).getMaxVal();
 
         Button button_start = view.findViewById(R.id.button_start);
         Button button_second = view.findViewById(R.id.settings_back);
@@ -86,9 +92,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        assert getArguments() != null;
-        gameType = SecondFragmentArgs.fromBundle(getArguments()).getFirstInt();
-        maxVal = SecondFragmentArgs.fromBundle(getArguments()).getMaxVal();
         TextView streak_mult = view.getRootView().findViewById(R.id.multiplier_text);
         TextView score_text = view.getRootView().findViewById(R.id.text_score);
         score_text.setText(getString(R.string.score_text, score));
@@ -105,7 +108,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         } else if (maxVal <= 300) {
             streakMultiplyer = 6;
         }
-        streak_mult.setText(getString(R.string.mult_streak_text, String.valueOf(streakMultiplyer)));
+        if (maxVal > 49) {
+            streak_mult.setText(getString(R.string.mult_streak_text, String.valueOf(streakMultiplyer)));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: RESUME");
     }
 
     @Override
@@ -330,23 +341,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 counter++;
                 count.setText(String.valueOf(60 - counter));
             } else {
+                count.setText(getResources().getString(R.string.go));
+                score_text.setText(getResources().getString(R.string.score_text, score));
                 view.getRootView().findViewById(R.id.button_start).setEnabled(true);
+                counter = -1;
+                problem.setText("");
                 timer.cancel();
                 endGame();
-                counter = -1;
-                count.setText(getString(R.string.go));
-                score_text.setText(getString(R.string.score_text, score));
-                problem.setText("");
             }
         }
     };
-
-    public void endGame() {
-        SecondFragmentDirections.ActionSecondFragmentToHighScoreFragment action = SecondFragmentDirections.actionSecondFragmentToHighScoreFragment(score);
-        NavHostFragment.findNavController(SecondFragment.this).
-                navigate(action);
-        score = 0;
-    }
 
     public void startTimer() {
         timer = new Timer();
@@ -357,5 +361,20 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             }
         }, 0, 1000);
     }
+
+    public void endGame() {
+        SecondFragmentDirections.ActionSecondFragmentToHighScoreFragment action =
+                SecondFragmentDirections.actionSecondFragmentToHighScoreFragment(score);
+        NavHostFragment.findNavController(SecondFragment.this).navigate(action);
+        score = 0;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "ON PAUSE: PAUSE");
+        timer.cancel();
+    }
+
 
 }
